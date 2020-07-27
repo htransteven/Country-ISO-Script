@@ -50,3 +50,20 @@ const getCountryInfo = () => {
 
   return isoData;
 };
+
+const createImportFile = () => {
+  const data = getCountryInfo();
+  let result = "";
+
+  Object.keys(data).forEach((key) => {
+    result += `import {default as ${key.toUpperCase()}} from './${key.toLowerCase()}.svg';\n`;
+  });
+
+  result += "const flags = {\n";
+  Object.keys(data).forEach((key) => {
+    result += `${key.toUpperCase()},\n`;
+  });
+  result += "\n} \nexport default flags;";
+
+  return result;
+};
